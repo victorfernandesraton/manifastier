@@ -10,7 +10,7 @@ import (
 
 func TestParseIconToJSON(t *testing.T) {
 	stub := icon.Icon{
-		Size: icon.Size{
+		Size: &icon.Size{
 			Width:  50,
 			Height: 65,
 		},

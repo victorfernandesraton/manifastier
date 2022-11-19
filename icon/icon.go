@@ -6,7 +6,7 @@ import (
 )
 
 type Icon struct {
-	Size Size   `json:"size"`
+	Size *Size  `json:"size"`
 	Src  string `json:"src"`
 }
 
