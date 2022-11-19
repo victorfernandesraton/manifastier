@@ -1,4 +1,4 @@
-package manifastier
+package display
 
 type Display string
 

@@ -1,16 +1,17 @@
-package manifastier_test
+package manifest_test
 
 import (
 	"encoding/json"
-	"github.com/victorfernandesraton/manifastier"
 	"strings"
 	"testing"
+
+	"github.com/victorfernandesraton/manifastier/manifest"
 )
 
 func TestCreateManifast(t *testing.T) {
 	t.Run("test simple empty manifast", func(t *testing.T) {
 		result := `{"display": "fullscreen"}`
-		data := manifastier.Manifest{}
+		data := manifest.Manifest{}
 
 		res, err := json.Marshal(data)
 
