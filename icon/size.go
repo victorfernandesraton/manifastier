@@ -31,7 +31,7 @@ func (s *Size) Unmarshal(data []byte) error {
 	}
 
 	for i, value := range listValues {
-		res, err := strconv.Atoi(value)
+		res, err := strconv.ParseUint(value, 10, 64)
 		if err != nil {
 			return NotValidStringAsUint
 		}

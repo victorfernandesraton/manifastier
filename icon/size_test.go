@@ -1,8 +1,9 @@
 package icon_test
 
 import (
-	"github.com/victorfernandesraton/manifastier/icon"
 	"testing"
+
+	"github.com/victorfernandesraton/manifastier/icon"
 )
 
 func TestParseSizeFromByteString(t *testing.T) {
@@ -36,4 +37,33 @@ func TestParseSizeFromByteString(t *testing.T) {
 		}
 	})
 
+	t.Run("error when passing more tham one valuer", func(t *testing.T) {
+		input := []byte("45x50x43")
+		stub := icon.Size{}
+		err := stub.Unmarshal(input)
+		if err != icon.NotHaveAValidSizes {
+			t.Fatalf("expected error %v, got %v", icon.NotHaveAValidSizes, err)
+		}
+		if stub.Width != 0 {
+			t.Fatalf("error in width expect %v, got %v", 0, stub.Width)
+		}
+		if stub.Height != 0 {
+			t.Fatalf("error in height expect %v, got %v", 0, stub.Height)
+		}
+	})
+
+	t.Run("error when not have a separator", func(t *testing.T) {
+		input := []byte("45")
+		stub := icon.Size{}
+		err := stub.Unmarshal(input)
+		if err != icon.NotSeparatorError {
+			t.Fatalf("expected error %v, got %v", icon.NotSeparatorError, err)
+		}
+		if stub.Width != 0 {
+			t.Fatalf("error in width expect %v, got %v", 0, stub.Width)
+		}
+		if stub.Height != 0 {
+			t.Fatalf("error in height expect %v, got %v", 0, stub.Height)
+		}
+	})
 }
