@@ -1,11 +1,11 @@
 package icon
 
 import (
-	"fmt"
 	"image"
 	_ "image/jpeg"
 	_ "image/png"
 	"io/ioutil"
+	"log"
 	"os"
 	"path/filepath"
 
@@ -25,7 +25,7 @@ func ParseIconListFromDir(dirname string) ([]*Icon, error) {
 	if err != nil {
 		return nil, err
 	}
-	fmt.Println("total files: ", len(files))
+	log.Println("total files: ", len(files))
 
 	for _, imgFile := range files {
 

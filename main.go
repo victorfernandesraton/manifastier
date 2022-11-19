@@ -1,7 +1,9 @@
 package main
 
 import (
-	"github.com/spf13/cobra"
+	"log"
+
+	"github.com/victorfernandesraton/manifastier/cmd"
 )
 
 var (
@@ -14,22 +16,21 @@ var (
 	BackgroundColor   string
 )
 
+func init() {
+	cmd.RootCmd.AddCommand(cmd.ExecCmd)
+}
+
 func main() {
 
-	var RootCmd = &cobra.Command{
-		Use:   "manifastier",
-		Short: "manifastier is a manifest.json file generator CLI",
-		Long:  "manifastier is a binary independent manifest.json file generator CLI , love by Victor Raton.",
-		Run:   func(cmd *cobra.Command, args []string) {},
+	cmd.ExecCmd.Flags().StringVarP(&iconFolderPathArg, "icon-folder", "i", "", "Icons folder (required)")
+	cmd.ExecCmd.Flags().StringVarP(&displayArg, "display", "d", "", "Display type")
+	cmd.ExecCmd.Flags().StringVarP(&nameArg, "name", "n", "", "Name property (required)")
+	cmd.ExecCmd.Flags().StringVar(&descriptionArg, "description", "", "Start url proprety (required)")
+	cmd.ExecCmd.Flags().StringVarP(&shorNameArg, "short_name", "s", "", "Short name property (required)")
+	cmd.ExecCmd.Flags().StringVarP(&StartURLArg, "start_url", "u", "", "Start url proprety (required)")
+	cmd.ExecCmd.Flags().StringVarP(&BackgroundColor, "background_color", "b", "", "Bacground color proprety (required)")
+
+	if err := cmd.RootCmd.Execute(); err != nil {
+		log.Fatal(err)
 	}
-	RootCmd.Flags().StringVarP(&iconFolderPathArg, "icon-folder", "i", "", "Icons folder (required)")
-	RootCmd.Flags().StringVarP(&displayArg, "display", "d", "", "Display type")
-	RootCmd.Flags().StringVarP(&nameArg, "name", "n", "", "Name property (required)")
-	RootCmd.Flags().StringVarP(&descriptionArg, "description", "desc", "", "Start url proprety (required)")
-	RootCmd.Flags().StringVarP(&shorNameArg, "short_name", "s", "", "Short name property (required)")
-	RootCmd.Flags().StringVarP(&StartURLArg, "start_url", "url", "", "Start url proprety (required)")
-
-	RootCmd.Flags().StringVarP(&BackgroundColor, "background_color", "bg", "", "Bacground color proprety (required)")
-
-	RootCmd.Execute()
 }
