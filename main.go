@@ -14,6 +14,7 @@ var (
 	descriptionArg    string
 	StartURLArg       string
 	BackgroundColor   string
+	SocpeUrl          string
 )
 
 func init() {
@@ -29,6 +30,7 @@ func main() {
 	cmd.ExecCmd.Flags().StringVarP(&shorNameArg, "short_name", "s", "", "Short name property (required)")
 	cmd.ExecCmd.Flags().StringVarP(&StartURLArg, "start_url", "u", "", "Start url proprety (required)")
 	cmd.ExecCmd.Flags().StringVarP(&BackgroundColor, "background_color", "b", "", "Bacground color proprety (required)")
+	cmd.ExecCmd.Flags().StringVar(&SocpeUrl, "scope", "", "url with define an scope limit for app")
 
 	if err := cmd.RootCmd.Execute(); err != nil {
 		log.Fatal(err)

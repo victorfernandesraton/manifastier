@@ -2,6 +2,7 @@ package icon
 
 import (
 	"errors"
+	"log"
 	"strconv"
 	"strings"
 )
@@ -18,28 +19,30 @@ type Size struct {
 	Width, Height uint64
 }
 
-func (s *Size) Unmarshal(data []byte) error {
+func UnmarshalSize(data []byte) (*Size, error) {
 	dataString := string(data)
+	var result Size
 	if !strings.Contains(dataString, separator) {
-		return NotSeparatorError
+		return nil, NotSeparatorError
 	}
 
 	listValues := strings.Split(dataString, separator)
 
 	if len(listValues) != 2 {
-		return NotHaveAValidSizes
+		return nil, NotHaveAValidSizes
 	}
 
 	for i, value := range listValues {
 		res, err := strconv.ParseUint(value, 10, 64)
 		if err != nil {
-			return NotValidStringAsUint
+			return nil, NotValidStringAsUint
 		}
 		if i == 0 {
-			s.Width = uint64(res)
+			result.Width = uint64(res)
 		} else {
-			s.Height = uint64(res)
+			result.Height = uint64(res)
 		}
 	}
-	return nil
+	log.Println(result)
+	return &result, nil
 }

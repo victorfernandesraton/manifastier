@@ -2,6 +2,7 @@ package manifest
 
 import (
 	"errors"
+	"net/url"
 
 	"github.com/victorfernandesraton/manifastier/display"
 	"github.com/victorfernandesraton/manifastier/icon"
@@ -19,4 +20,5 @@ type Manifest struct {
 	BackgroundColor string          `json:"background_color"`
 	Description     string          `json:"description"`
 	Icon            []*icon.Icon    `json:"icon"`
+	Scope           url.URL         `json:"scope"`
 }

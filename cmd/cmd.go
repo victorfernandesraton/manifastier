@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"net/url"
 	"path"
 
 	"github.com/spf13/cobra"
@@ -19,18 +20,24 @@ var ExecCmd = &cobra.Command{
 
 	RunE: func(cmd *cobra.Command, args []string) error {
 		outputPath := "./manifest.json"
+		iconfolder := "./public/assets/icons"
 		if len(args) == 1 {
 			outputPath = args[0]
 		}
 
 		fileName := path.Join(outputPath)
 
-		iconFolder, err := cmd.Flags().GetString("icon-folder")
+		iconFolderData, err := cmd.Flags().GetString("icon-folder")
+		if iconFolderData != "" {
+			iconfolder = iconFolderData
+		}
 		displayData, err := cmd.Flags().GetString("display")
 		name, err := cmd.Flags().GetString("name")
 		shortName, err := cmd.Flags().GetString("short_name")
 		description, err := cmd.Flags().GetString("description")
 		startUrl, err := cmd.Flags().GetString("start_url")
+		scope, err := cmd.Flags().GetString("scope")
+		scopeUrl, err := url.Parse(scope)
 		if err != nil {
 			return err
 		}
@@ -39,7 +46,7 @@ var ExecCmd = &cobra.Command{
 			displayData = string(display.Fullscreen)
 		}
 
-		icons, err := icon.ParseIconListFromDir(iconFolder)
+		icons, err := icon.ParseIconListFromDir(iconfolder)
 		if err != nil {
 			return err
 		}
@@ -52,6 +59,7 @@ var ExecCmd = &cobra.Command{
 			Display:         display.Display(displayData),
 			StartURL:        startUrl,
 			BackgroundColor: "#FAFAFA",
+			Scope:           *scopeUrl,
 		}
 
 		res, err := json.Marshal(data)
