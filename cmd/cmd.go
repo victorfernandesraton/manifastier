@@ -2,8 +2,8 @@ package cmd
 
 import (
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
+	"log"
 	"net/url"
 	"path"
 
@@ -63,7 +63,7 @@ var ExecCmd = &cobra.Command{
 		}
 
 		res, err := json.Marshal(data)
-		fmt.Println(string(res))
+		log.Println(string(res))
 		return ioutil.WriteFile(fileName, res, 0600)
 
 	},

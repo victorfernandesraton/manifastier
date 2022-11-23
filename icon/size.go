@@ -2,7 +2,6 @@ package icon
 
 import (
 	"errors"
-	"log"
 	"strconv"
 	"strings"
 )
@@ -43,6 +42,5 @@ func UnmarshalSize(data []byte) (*Size, error) {
 			result.Height = uint64(res)
 		}
 	}
-	log.Println(result)
 	return &result, nil
 }
