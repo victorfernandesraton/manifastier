@@ -21,13 +21,13 @@ func TestFindIconsByDir(t *testing.T) {
 			t.Fatalf("not valid size expected %vx%v, got %vx%v", data[0].Size.Height, data[0].Size.Width, 32, 32)
 		}
 	})
-	t.Run("empty list of icons", func(t *testing.T) {
-		data, err := icon.ParseIconListFromDir("../testdata/empty")
+	t.Run("error when directory does not exist", func(t *testing.T) {
+		data, err := icon.ParseIconListFromDir("../ok")
 		if data != nil {
 			t.Fatalf("expected nil data, got %v", data)
 		}
-		if err != nil {
-			t.Fatalf("expected nilerror, got %v", err)
+		if err.Error() != "open ../ok: no such file or directory" {
+			t.Fatalf("expected open ../ok: no such file or directory, got %v", err)
 		}
 	})
 }
