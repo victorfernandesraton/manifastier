@@ -8,7 +8,6 @@ import (
 	"path"
 
 	"github.com/spf13/cobra"
-	"github.com/victorfernandesraton/manifastier/display"
 	"github.com/victorfernandesraton/manifastier/icon"
 	"github.com/victorfernandesraton/manifastier/manifest"
 )
@@ -27,7 +26,7 @@ var ExecCmd = &cobra.Command{
 
 		fileName := path.Join(outputPath)
 
-		iconFolderData, err := cmd.Flags().GetString("icon-folder")
+		iconFolderData, err := cmd.Flags().GetString("assets")
 		if iconFolderData != "" {
 			iconfolder = iconFolderData
 		}
@@ -43,7 +42,7 @@ var ExecCmd = &cobra.Command{
 		}
 
 		if displayData == "" {
-			displayData = string(display.Fullscreen)
+			displayData = string(manifest.Fullscreen)
 		}
 
 		icons, err := icon.ParseIconListFromDir(iconfolder)
@@ -56,7 +55,7 @@ var ExecCmd = &cobra.Command{
 			Name:            name,
 			ShortName:       shortName,
 			Description:     description,
-			Display:         display.Display(displayData),
+			Display:         manifest.Display(displayData),
 			StartURL:        startUrl,
 			BackgroundColor: "#FAFAFA",
 			Scope:           *scopeUrl,
